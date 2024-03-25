@@ -1,0 +1,29 @@
+---
+import links from "../data/links.json";
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const docsEntries = await getCollection("docs");
+
+---
+
+<Layout title="Table of contents">
+    <h2>Table of contents</h2>
+    {links.map((link) => (
+        <div>
+            <h3>{link.title}</h3>
+            <ul>
+                {link.items.map((item) => {
+                    const doc = docsEntries.find((doc) => doc.slug === item);
+                    return (
+                        <li>
+                            <a href={`${base}${doc?.slug}`}>{doc?.data.title}</a>
+                        </li>
+                    );
+                })}
+            </ul>
+        </div>
+    ))}
+</Layout>

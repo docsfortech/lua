@@ -1,0 +1,28 @@
+:root {
+    --color-navbar-background: #b4b4fe;
+    --color-navbar-text: #010132;
+    --color-navbar-link: #010132;
+}
+  
+
+html.theme-light {
+  --color-background: white;
+  --color-background-dim: #f5f5f5;
+  --color-text: #383a42;
+  --color-link: #383a42;
+  --color-link-decoration: #017ed7;
+  --color-code: #383a42;
+  --color-divider: var(--color-navbar-background);
+  color-scheme: light;
+}
+
+html.theme-dark {
+  --color-background: #282c34;
+  --color-background-dim: #1c1f24;
+  --color-text: #f0f6fc;
+  --color-link: #f0f6fc;
+  --color-link-decoration: #017ed7;
+  --color-code: #f0f6fc;
+  --color-divider: var(--color-navbar-background);
+  color-scheme: dark;
+}

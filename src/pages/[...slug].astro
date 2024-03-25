@@ -1,0 +1,51 @@
+---
+import links from "../data/links.json";
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+
+const base = import.meta.env.BASE_URL;
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection("docs");
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+function urlFor(slug: string) {
+  if (slug === "/") {
+    return base;
+  }
+  return `${base}${slug}`;
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const items = ['/', ...links.flatMap((link) => link.items)];
+
+const currentIndex = items.findIndex((item) => item === entry.slug);
+
+const prev = items[currentIndex - 1];
+const next = items[currentIndex + 1];
+---
+
+<Layout title={entry.data.title}>
+  <Content />
+  <nav class="prev-next">
+    {
+      prev 
+      ? <a href={urlFor(prev)}>Back</a>
+      : <span>Back</span>
+    } — <a href={`${base}table-of-contents`}>Contents</a> — 
+    {
+      next 
+      ? <a href={urlFor(next)}>Next</a>
+      : <span>Next</span>
+    }
+  </nav>
+  <div slot="editor" id="editor-target">{entry.data.code}</div>
+</Layout>
+
+<script src="../scripts/script.ts"></script>

@@ -1,0 +1,45 @@
+---
+import Logo from "../components/Logo.astro";
+import RightNav from "../components/ThemeToggle.astro";
+import nav from "../data/config.json";
+import "../styles/common.css";
+import "../styles/global.css";
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const { rightText, rightLink, title: navTitle } = nav;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="/" class="logo">
+        <Logo />
+        {navTitle}
+      </a>
+	  <RightNav>
+		<a href={rightLink}>{rightText}</a>
+	  </RightNav>
+    </nav>
+    <article id="playground">
+      <section id="left">
+        <slot />
+      </section>
+      <section id="right">
+        <section id="editor"><slot name="editor" /></section>
+        <aside id="output"></aside>
+      </section>
+    </article>
+  </body>
+</html>
