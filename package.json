@@ -17,5 +17,6 @@
   },
   "devDependencies": {
     "@types/codeflask": "^1.4.6"
-  }
+  },
+  "packageManager": "pnpm@8.12.1"
 }
